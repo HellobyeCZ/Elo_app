@@ -104,7 +104,7 @@ with tabs[0]:
     st.subheader("Elo Ratings over time:")
     st.plotly_chart(px.line(elo_history_dict))
     
-    st.subheader("Curent standings:")
+    st.subheader("Current standings:")
     st.dataframe(player_df_data.drop(columns=["elo_history"]).sort_values(by="elo", ascending=False))
 
     st.subheader("Last 10 matches:")
