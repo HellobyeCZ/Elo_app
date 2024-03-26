@@ -1,0 +1,9 @@
+datetime
+streamlit
+pandas
+gspread
+oauth2client
+statistics
+math
+numpy
+plotly
