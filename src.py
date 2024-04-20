@@ -5,6 +5,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from statistics import mean
 import math
+import numpy as np
 
 """
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
@@ -219,7 +220,9 @@ class Match:
             "pre_elo_T1": self.pre_elo_T1,
             "pre_elo_T2": self.pre_elo_T2,
             "post_elo_T1": self.post_elo_T1,
-            "post_elo_T2": self.post_elo_T2
+            "post_elo_T2": self.post_elo_T2,
+            "prob_T1": round(np.mean(self.preT1),2),
+            "prob_T2": round(np.mean(self.preT2),2)
         }
     
     

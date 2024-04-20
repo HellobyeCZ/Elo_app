@@ -149,19 +149,40 @@ with tabs[1]:
 with tabs[2]:
     st.subheader("Players")
     st.write("Here you can view the Elo ratings and history of individual players.")
-    player = st.selectbox("Select a player:", options=players_list_whisp)
-    interested = players_dict[player]
-    player_data = interested.to_dict()
+    player = st.selectbox("Select a player:", options=players_list_whisp, index=players_list_whisp.index(list(players_dict.keys())[0]))
     
-    cols = st.columns(3)
-    with cols[0]:
-        st.metric("Current Elo", player_data["elo"])
-    with cols[1]:
-        st.metric("Max Elo", max(player_data["elo_history"]))
-    with cols[2]:
-        st.metric("Min Elo", min(player_data["elo_history"]))
-    st.subheader("Elo Ratings over time:")
-    st.plotly_chart(px.line(player_data["elo_history"]))
+    try:
+        interested = players_dict[player]
+        player_data = interested.to_dict()
+        
+        cols = st.columns(3)
+        with cols[0]:
+            st.metric("Current Elo", player_data["elo"])
+        with cols[1]:
+            st.metric("Max Elo", max(player_data["elo_history"]))
+        with cols[2]:
+            st.metric("Min Elo", min(player_data["elo_history"]))
+        
+        cols =  st.columns(5)
+        with cols[0]:
+            st.metric("Total Matches", player_data["matches_played"])
+        with cols[1]:
+            st.metric("Wins", player_data["matches_won"])
+        with cols[2]:
+            st.metric("Losses", player_data["matches_lost"])
+        with cols[3]:
+            st.metric("Draws", player_data["matches_drawn"])
+        with cols[4]:
+            st.metric("Win Rate", f"{player_data['matches_won']/player_data['matches_played']*100:.1f}%")
+        st.subheader("Elo Ratings over time:")
+        fig = px.line(player_data["elo_history"], title=f"Elo ratings for {player}", labels={"index": "index", "value": "Elo"})
+        fig.update_layout(showlegend=False)
+        st.plotly_chart(fig)
+        st.json(player_data, expanded=False)
+    except KeyError:
+        st.write("Player not found :(")
+    except Exception as e:
+        st.write(f"An error occurred: {e}")
 
 
 with tabs[3]:
