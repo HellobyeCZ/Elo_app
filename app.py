@@ -102,6 +102,7 @@ with tabs[0]:
 
     #st.line_chart(pd.DataFrame(elo_history_dict))
     st.subheader("Elo Ratings over time:")
+    st.json(elo_history_dict)
     #st.plotly_chart(px.line(elo_history_dict))
     
     st.subheader("Current standings:")
