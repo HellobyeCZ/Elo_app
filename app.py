@@ -106,7 +106,8 @@ with tabs[0]:
     st.plotly_chart(px.line(elo_history_dict))
     
     st.subheader("Current standings:")
-    st.dataframe(player_df_data.drop(columns=["elo_history"]).sort_values(by="elo", ascending=False))
+    #st.dataframe(player_df_data.drop(columns=["elo_history"]).sort_values(by="elo", ascending=False).reset_index(drop=True))
+    st.dataframe(player_df_data.sort_values(by="elo", ascending=False).reset_index(drop=True), column_config={"elo_history": st.column_config.LineChartColumn("Elo history")})
 
     st.subheader("Last 10 matches:")
     st.dataframe(matches_df_data.tail(10).sort_index(ascending=False))
