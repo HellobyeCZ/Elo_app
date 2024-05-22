@@ -107,8 +107,22 @@ with tabs[0]:
     
     st.subheader("Current standings:")
     #st.dataframe(player_df_data.drop(columns=["elo_history"]).sort_values(by="elo", ascending=False).reset_index(drop=True))
+    player_df_data["GF/game"] = player_df_data["goals_scored"]/player_df_data["matches_played"]
+    player_df_data["GA/game"] = player_df_data["goals_conceded"]/player_df_data["matches_played"]
+    player_df_data["Win ratio"] = player_df_data["matches_won"]/player_df_data["matches_played"]
     
-    st.dataframe(player_df_data.sort_values(by="elo", ascending=False).reset_index(drop=True), column_config={"elo_history": st.column_config.LineChartColumn("Elo history")})
+    st.dataframe(player_df_data.sort_values(by="elo", ascending=False).reset_index(drop=True), column_config={
+        "elo_history": st.column_config.LineChartColumn("Elo history"),
+        "name": "Name",
+        "elo": "Elo",
+        "goals_scored": "GF",
+        "goals_conceded": "GA",
+        "matches_played": "GP",
+        "matches_won": "W",
+        "matches_drawn": "D",
+        "matches_lost": "L"
+        }
+    )
 
     st.subheader("Last 10 matches:")
     st.dataframe(matches_df_data.tail(10).sort_index(ascending=False))
