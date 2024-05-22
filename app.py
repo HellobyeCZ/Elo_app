@@ -107,7 +107,7 @@ with tabs[0]:
     
     st.subheader("Current standings:")
     #st.dataframe(player_df_data.drop(columns=["elo_history"]).sort_values(by="elo", ascending=False).reset_index(drop=True))
-    st.dataframe(player_df_data.sort_values(by="elo", ascending=False).reset_index(drop=True), column_config={"elo_history": st.column_config.LineChartColumn("Elo history", ymin = player_df_data["elo_history"].min(), ymax = player_df_data["elo_history"].max())})
+    st.dataframe(player_df_data.sort_values(by="elo", ascending=False).reset_index(drop=True), column_config={"elo_history": st.column_config.LineChartColumn("Elo history", y_min = player_df_data["elo_history"].min(), y_max = player_df_data["elo_history"].max())})
 
     st.subheader("Last 10 matches:")
     st.dataframe(matches_df_data.tail(10).sort_index(ascending=False))
